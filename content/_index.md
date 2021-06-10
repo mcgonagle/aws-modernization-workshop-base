@@ -903,4 +903,28 @@ spec:
             servicePort: 5678
 ```
 
+1. From Pipelines Screen click manual execution of Deploy Apple pipeline
+2. Visit the ingress of the apple deployment by clicking on the Load balancer icon in the left pane, then on the right side click on the "example-ingress", which is in the status box. When clicking on the ingress, you should expect to get a 404, to access the apple app, you have to append the url path /apple to the end of the ingress. 
+3. Next we are going to update the YAML and Spinnaker is going to automatically update the version
+4. Click configure on the Deploy Apple Pipeline
+5. Change the '-text=apple' under image for the deployment to '-text=banana' and run the 
+6. Doing so will create a new version of the deployment
+7. Visit the ingress with the /apple path appeneded and see that the app is now displaying the word banana.
+
+
+## Rollback
+1. In the top right, click the '+' icon (or "+ Create", depending on the size of your browser)
+1. Give the pipeline the name "Rollback Apple"
+2. Add Stage and select the type Undo Rollout (Manifest)
+3. Name it Rollback Apple
+4. Choose Account Spinnaker
+5. Choose Namespace Dev
+6. Choose Kind Deployment
+7. Choose Name Apple-App
+8. Save Pipeline
+9. Run the pipeline via manual execution
+10. Once run, go back to the browser with the /apple appended to the ingress hostname and notice that the apple text has returned, no more banana. You have succesfully rolled your deployment back to the previous version
+
+
+
 
