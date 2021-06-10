@@ -925,6 +925,16 @@ spec:
 9. Run the pipeline via manual execution
 10. Once run, go back to the browser with the /apple appended to the ingress hostname and notice that the apple text has returned, no more banana. You have succesfully rolled your deployment back to the previous version
 
-
-
+## Scale Up
+1. In the top right, click the '+' icon (or "+ Create", depending on the size of your browser)
+1. Give the pipeline the name "Scaleup Apple"
+2. Add Stage and select the type Scale (Manifest)
+3. Name it Scaleup Apple
+4. Choose Account Spinnaker
+5. Choose Namespace Dev
+6. Choose Kind Deployment
+7. Selector choose static target
+8. Choose Name Apple-App
+9. Replicas choose 6
+10. Save Pipeline
 
