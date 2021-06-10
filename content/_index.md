@@ -846,5 +846,61 @@ curl -k \
   'https://<your-minnaker-url>/api/v1/pipelines/v2/hello-today/Deploy%20Application'
 ```
 
+## Module 3: Rollback and Scaleup
+1. In the top right, click the '+' icon (or "+ Create", depending on the size of your browser)
+1. Give the pipeline the name "Deploy Apple"
+2. Click Add Stage and add a Deploy (Manifest) and Stage Name is Deploy Apple
+3. Under Account Choose Spinnaker
+4. Check Override Namespace
+5. Choose dev as the namespace
+6. And Copy in the following YAML and click Save
+
+```
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apple-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: apple
+  template:
+    metadata:
+      labels:
+        app: apple
+        lb: apple
+    spec:
+      containers:
+        - image: hashicorp/http-echo
+          args:
+           - "-text=apple"
+          name: apple-app
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: apple-service
+spec:
+  selector:
+    app: apple
+  ports:
+    - port: 5678 # Default port for image
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: example-ingress
+  annotations:
+    ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - http:
+      paths:
+        - path: /apple
+          backend:
+            serviceName: apple-service
+            servicePort: 5678
+```
 
 
