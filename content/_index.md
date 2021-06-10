@@ -937,4 +937,6 @@ spec:
 8. Choose Name Apple-App
 9. Replicas choose 6
 10. Save Pipeline
+11. Run the pipeline via manual execute
+12. Go see the replicaset and how it scaled up in the Cluster section of the interface. You will now see 6 green bars under the Apple App Deployment
 
